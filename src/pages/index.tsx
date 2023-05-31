@@ -2,86 +2,15 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Modal from '@/components/modal';
-import { VisibilityObserver } from 'reactjs-visibility';
-import { ArrowRightIcon, CheckCircleIcon, CheckIcon, ChevronDoubleUpIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
-import 'pure-react-carousel/dist/react-carousel.es.css';
-import { useEffect } from 'react';
-import { AiFillInstagram, AiFillMail, AiFillPhone, AiOutlineInstagram, AiOutlineMail, AiOutlinePhone, AiOutlineWhatsApp } from 'react-icons/ai'
+import { ArrowRightIcon} from '@heroicons/react/24/outline';
+import { AiFillInstagram, AiFillMail, AiFillPhone} from 'react-icons/ai'
 import Link from 'next/link';
 
 export default function Home() {
-  const [isButton1Visible, setIsButton1Visible] = useState(false)
-  const [width, setWidth] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isProgressVisible, setIsProgressVisible] = useState(false)
-  const news = [
-    {
-      title: "Digital Business",
-      name: "Кто зарабатывает на образовании: ТОП-40 казахстанских EdTech-компаний",
-      desc: "По итогам 2022 года общий объем выручки крупнейших казахстанских EdTech-компаний вырос всего на 1,17%, говорится в результатах исследования Smart Ranking.",
-      image_url: "/static/news/1.jpg",
-      link_url: "https://digitalbusiness.kz/2023-04-10/kto-zarabatyvaet-na-obrazovanii-top-40-kazahstanskih-edtech-kompanij/"
-    },
-    {
-      title: "Inbusiness.kz",
-      name: "Инвестиции в EdTech-стартапы: что изменилось за последний год?",
-      desc: "Учебные заведения сталкиваются с растущим спросом на подготовку нового поколения к непредсказуемым экономическим вызовам, а также социальным изменениям, совершенно иным профессиям и технологическому развитию.",
-      image_url: "/static/news/2.jpg",
-      link_url: "https://inbusiness.kz/ru/author_news/investicii-v-edtech-startapy-chto-izmenilos-za-poslednij-god"
-    },
-    {
-      title: "Пульс Mail.ru",
-      name: "Разработку казахстанского EdTech-стартапа внедрили в Южной Корее",
-      desc: "В государственной школе Incheon Dohwa Elementary School города Инчхон с апреля этого года начали использовать в образовательном процессе программу IT-компании «CodiPlay», передает DKNews.kz.",
-      image_url: "/static/news/3.jpg",
-      link_url: "https://pulse.mail.ru/article/razrabotku-kazahstanskogo-edtech-startapa-vnedrili-v-yuzhnoj-koree-8721034644433477648-8047193216050820174/"
-    },
-    {
-      title: "Telegram",
-      name: "DigitalBusiness.kz",
-      desc: "Программа казахстанской ИТ-компании CodiPlay с апреля 2023 года используется в образовательном процессе государственной школы Incheon Dohwa Elementary School города Инчхон в Южной Корее. EdTech-стартапа CodiPlay разработал одноименное приложение с э…",
-      image_url: "/static/news/4.jpg",
-      link_url: "https://t.me/digitalbussinesskz/691"
-    },
-    {
-      title: "Digital Business",
-      name: "Разработку казахстанского EdTech-стартапа внедрили в Южной Корее",
-      desc: "В государственной школе Incheon Dohwa Elementary School города Инчхон начали использовать приложение стартапа CodiPlay для обучения программированию учеников с 1 по 6 классы.",
-      image_url: "/static/news/5.jpg",
-      link_url: "https://digitalbusiness.kz/2023-04-05/razrabotku-kazahstanskogo-edtech-startapa-vnedrili-v-yuzhnoj-koree/"
-    },
-    {
-      title: "Dknews.kz",
-      name: "Разработку казахстанского EdTech-стартапа внедрили в Южной Корее",
-      desc: "В государственной школе Incheon Dohwa Elementary School города Инчхон с апреля этого года начали использовать в образовательном процессе программу IT-компании «CodiPlay»",
-      image_url: "/static/news/2.jpg",
-      link_url: "https://dknews.kz/ru/dk-life/280696-razrabotku-kazahstanskogo-edtech-startapa-vnedrili-v"
-    },
-    {
-      title: "Bluescreen.kz",
-      name: "Профессии будущего: как подготовить к ним своего ребенка?",
-      desc: "Все больше специалистов из самых разных областей говорят о совершенно новых профессиях и изменениях в структуре рынка труда. Во многом это связано с ускорением темпа разработки и внедрения новых технологий.",
-      image_url: "/static/news/7.jpg",
-      link_url: "https://bluescreen.kz/news/12897/profiessii-budushchiegho-kak-podghotovit-k-nim-svoiegho-riebienka"
-    },
-    {
-      title: "Kursiv Media",
-      name: "Зачем образованию нужны EdTech проекты?",
-      desc: "В глобальном масштабе образование – это быстрорастущий рынок во всех типах экономики с разным уровнем развития. Размер рынка EdTech оценивался в $254,80 млрд в 2021 году и достигнет $605,40 млрд к 2027 году, увеличившись в среднем на 15,52% в течение прогнозируемого периода.",
-      image_url: "/static/news/2.jpg",
-      link_url: "https://kz.kursiv.media/opinions/zachem-obrazovaniyu-nuzhny-edtech-proekty/"
-    },
-  ]
 
-  useEffect(() => {
-    setWidth(window.innerWidth)
-  }, [setWidth]);
-
-  if (width === 0) {
-    return (
-      <></>
-    )
+  const openModal = () => {
+    setIsModalOpen(true)
   }
 
   return (
@@ -128,7 +57,7 @@ export default function Home() {
               </li>
             </Link>
           </ul>
-          <button className="bg-primary flex items-center gap-10 pl-10 pr-2 py-2 rounded-full text-white">
+          <button onClick={openModal} className="bg-primary flex items-center gap-10 pl-10 pr-2 py-2 rounded-full text-white">
             Подключить школу
             <div className="p-[10px] bg-white rounded-full">
                 <ArrowRightIcon className='h-5 w-5 text-black rotate-[-45deg]'/>
@@ -181,7 +110,7 @@ export default function Home() {
             <p className="text-5xl p-[20px]">5 школ в Южной Корее</p>
           </div>
           <div className="flex justify-center my-20">
-            <button className="py-6 px-20 rounded-full text-white bg-primary text-2xl">Подключить школу к CodiPlay</button>
+            <button onClick={openModal} className="py-6 px-20 rounded-full text-white bg-primary text-2xl">Подключить школу к CodiPlay</button>
           </div>
         </div>
         {/* Product description cards */}
@@ -312,7 +241,7 @@ export default function Home() {
         {/* Connect school */}
         <p className="text-4xl text-center mt-[200px]">Подключить CodiPlay в вашу школу</p>
         <div className="flex justify-center mt-20">        
-          <button className="rounded-full text-3xl bg-primary text-white w-[300px] h-[300px]">Подключить</button>
+          <button onClick={openModal} className="rounded-full text-3xl bg-primary text-white w-[300px] h-[300px]">Подключить</button>
         </div>
         {/* Footer */}
         <div className="w-full max-w-screen-2xl mt-[200px] bg-black rounded-t-[50px] p-[90px] pb-1">

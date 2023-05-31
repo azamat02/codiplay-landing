@@ -38,29 +38,29 @@ export default function Modal({isOpen, setOpen}: ModalProps) {
         setError(true)
       } else {
         setLoading(true)
-        send(name, phone).then(res=>{
-          window.location.href="https://t.me/codiplayu"
-          setResponse("ok")
-          setLoading(false)
-          setTimeout(() => {
-            setOpen(false)
-            setName('')
-            setPhone('')
-            setLoading(false)
-            setResponse('')
-          }, 3000);
-        }).catch(err => {
-          console.log(err)
-          setResponse("error")
-          setLoading(false)
-          setTimeout(() => {
-            setOpen(false)
-            setName('')
-            setPhone('')
-            setLoading(false)
-            setResponse('')
-          }, 2000);
-        })
+        // send(name, phone).then(res=>{
+        //   window.location.href="https://t.me/codiplayu"
+        //   setResponse("ok")
+        //   setLoading(false)
+        //   setTimeout(() => {
+        //     setOpen(false)
+        //     setName('')
+        //     setPhone('')
+        //     setLoading(false)
+        //     setResponse('')
+        //   }, 3000);
+        // }).catch(err => {
+        //   console.log(err)
+        //   setResponse("error")
+        //   setLoading(false)
+        //   setTimeout(() => {
+        //     setOpen(false)
+        //     setName('')
+        //     setPhone('')
+        //     setLoading(false)
+        //     setResponse('')
+        //   }, 2000);
+        // })
       }
     }
 

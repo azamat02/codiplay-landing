@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Modal from '@/components/modal';
-import { ArrowRightIcon, Bars3Icon} from '@heroicons/react/24/outline';
+import { ArrowRightIcon, ArrowTopRightOnSquareIcon, Bars3Icon} from '@heroicons/react/24/outline';
 import { AiFillInstagram, AiFillMail, AiFillPhone} from 'react-icons/ai'
 import Link from 'next/link';
 
@@ -28,36 +28,41 @@ export default function Home() {
         {/* Header */}
         <div className="w-full hidden lg:flex max-w-screen-2xl justify-between 2xl:gap-52 my-[35px]">
           <ul className='flex justify-start items-center gap-20 text-lg'>
-            <Link href={'/'}>
-              <li>
+            <a href={'/'}>
+              <li className='hover:text-primary transition-all'>
                 <img src="/static/img/logo_icon.svg" alt="" className='bg-primary rounded-[5px] px-[9px] py-[13px]'/>
               </li>
-            </Link>
-            <Link href={'/'}>
-              <li>
+            </a>
+            <a href={'/'}>
+              <li className='hover:text-primary transition-all'>
                 Главная
               </li>
-            </Link>
-            <Link href={'#codiplay'}>
-              <li>
+            </a>
+            <a href={'#codiplay'}>
+              <li className='hover:text-primary transition-all'>
                 CodiPlay
               </li>
-            </Link>
-            <Link href={'#codikit'}>
-              <li>
+            </a>
+            <a href={'#codikit'}>
+              <li className='hover:text-primary transition-all'>
                 CodiKit
               </li>
-            </Link>
-            <Link href={'#coditeach'}>
-              <li>
+            </a>
+            <a href={'#coditeach'}>
+              <li className='hover:text-primary transition-all'>
                 CodiTeach
               </li>
-            </Link>
-            <Link href={'#contacts'}>
-              <li>
+            </a>
+            <a href={'#contacts'}>
+              <li className='hover:text-primary transition-all'>
                 Контакты
               </li>
-            </Link>
+            </a>
+            <a href={'https://invest.codiplay.kz'}>
+              <li className='flex items-center gap-2 hover:text-primary transition-all'>
+                Инвесторам <ArrowTopRightOnSquareIcon className='w-5 h-5'/>
+              </li>
+            </a>
           </ul>
           <button onClick={openModal} className="bg-primary flex items-center gap-10 pl-10 pr-2 py-2 rounded-full text-white">
             Подключить школу

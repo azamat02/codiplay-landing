@@ -11,6 +11,7 @@
   "dependencies": {
     "@ap.cx/react-fullpage": "^0.3.0",
     "@headlessui/react": "^1.7.14",
+    "@smakss/react-scroll-direction": "^2.1.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
@@ -20,6 +21,7 @@
     "emailjs-com": "^3.2.0",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
+    "framer-motion": "^10.12.16",
     "next": "13.3.0",
     "postcss": "8.4.21",
     "pure-react-carousel": "^1.30.1",

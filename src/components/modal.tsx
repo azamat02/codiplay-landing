@@ -1,20 +1,29 @@
 "use client";
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckCircleIcon, ExclamationCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import axios from 'axios';
+import Autocomplete from './Autocomplete';
+import schools from './schools.json'
+import CustomRadioGroup from './customRadioGroup';
+import Select from './select';
+
 interface ModalProps {
     isOpen: boolean,
     setOpen: Function
 }
 
-async function send(name: string, phone: string) {
-  // const apiUrl = 'http://localhost:80/append'
-  // const apiUrl = 'http://165.232.125.65/append'
-  const apiUrl = 'https://tbckend.kz/append'
+async function send(name: string, phone: string, region: string, area: string, city: string, school: string, role: string) {
+  // const apiUrl = 'http://localhost:80/append_school_v2'
+  const apiUrl = 'https://qazaqunion.kz/append_school_v2'
   const data = [
     name,
     phone,
+    region,
+    area,
+    city,
+    school,
+    role,
     new Date().toLocaleString('ru-RU', {month: 'long', day: 'numeric', year: 'numeric', weekday: 'long', hour: '2-digit', minute: '2-digit', second: '2-digit'})
   ]
   console.log(data)
@@ -27,40 +36,78 @@ async function send(name: string, phone: string) {
 
 export default function Modal({isOpen, setOpen}: ModalProps) {
     const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
+    const [region, setRegion] = useState('')
+    const [area, setArea] = useState('')
+    const [city, setCity] = useState('')
+    const [school, setSchool] = useState('')
+    const [role, setRole] = useState('')
+    let roles = ['Директор', 'Учитель', 'Завуч', 'Школьник', 'Родитель']
+    // @ts-ignore
+    let regions = [...new Set(schools.map(school => school.nate1))]
+    let areas = []
+    let cities = []
+    let filteredSchools = []
+
+    if (region) {
+      // @ts-ignore
+      areas = [...new Set(schools.map((school: any) => {if (school.nate1 === region) return school.nate2}))]
+      areas = areas.filter(area => {return area != undefined})
+    }
+
+    if (area) {
+      // @ts-ignore
+      cities = [...new Set(schools.map((school: any) => {if (school.nate1 === region && school.nate2 == area) return school.nate3}))]
+      cities = cities.filter(city => {return city != undefined})
+    }
+
+    if (city) {
+      // @ts-ignore
+      filteredSchools = [...new Set(schools.map((school: any) => {if (school.nate1 === region && school.nate2 == area && school.nate3 === city) return school.nate4}))]
+      filteredSchools = filteredSchools.filter(school => {return school != undefined})
+    }
     
     function submit() {
-      if (name == '' || phone == '') {
+      if (name == '' || phone == '' || region== '' || area== '' || city== '' || school== '' || role== '') {
         setError(true)
       } else {
         setLoading(true)
-        // send(name, phone).then(res=>{
-        //   window.location.href="https://t.me/codiplayu"
-        //   setResponse("ok")
-        //   setLoading(false)
-        //   setTimeout(() => {
-        //     setOpen(false)
-        //     setName('')
-        //     setPhone('')
-        //     setLoading(false)
-        //     setResponse('')
-        //   }, 3000);
-        // }).catch(err => {
-        //   console.log(err)
-        //   setResponse("error")
-        //   setLoading(false)
-        //   setTimeout(() => {
-        //     setOpen(false)
-        //     setName('')
-        //     setPhone('')
-        //     setLoading(false)
-        //     setResponse('')
-        //   }, 2000);
-        // })
+        send(name, phone, region, area, city, school, role).then(res=>{
+          window.location.href="https://t.me/codiplayu"
+          setResponse("ok")
+          setLoading(false)
+          setTimeout(() => {
+            setOpen(false)
+            setName('')
+            setPhone('')
+            setRegion('')
+            setArea('')
+            setCity('')
+            setSchool('')
+            setRole('')
+            setLoading(false)
+            setResponse('')
+          }, 3000);
+        }).catch(err => {
+          console.log(err)
+          setResponse("error")
+          setLoading(false)
+          setTimeout(() => {
+            setOpen(false)
+            setName('')
+            setPhone('')
+            setRegion('')
+            setArea('')
+            setCity('')
+            setSchool('')
+            setRole('')
+            setLoading(false)
+            setResponse('')
+          }, 2000);
+        })
       }
     }
 
@@ -75,7 +122,7 @@ export default function Modal({isOpen, setOpen}: ModalProps) {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="lining-nums relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -135,22 +182,38 @@ export default function Modal({isOpen, setOpen}: ModalProps) {
                             {error && <div className="p flex items-center rounded-lg gap-3 bg-orange-200 text-orange-800 px-5 py-3"><ExclamationCircleIcon className='w-5 h-5'/> Заполните все данные</div>}
                             <div className="my-6">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">ФИО</label>
-                                <input onChange={(e)=>{setName(e.target.value)}} type="text" id="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" placeholder="Введите ФИО" required/>
+                                <input onChange={(e)=>{setName(e.target.value)}} type="text" id="text" className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" placeholder="Введите ФИО" required/>
                             </div>
-                            {/* <div className="my-6">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Почта</label>
-                                <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" placeholder="Введите почту" required/>
-                            </div> */}
                             <div className="my-6">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Номер телефона</label>
-                                <input onChange={(e)=>{setPhone(e.target.value)}} type="number" id="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" placeholder="Введите номер телефона" required/>
+                                <input onChange={(e)=>{setPhone(e.target.value)}} type="number" id="number" className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" placeholder="Введите номер телефона" required/>
+                            </div>
+                            <div className="my-6">
+                              <label className="block mb-2 text-sm font-medium text-gray-900">Область</label>
+                              <Autocomplete array={regions} selected={region} setSelected={(value) => {setRegion(value); setArea(''); setCity(''); setSchool('')}}/>
+                            </div>
+                            <div className="my-6">
+                              <label className="block mb-2 text-sm font-medium text-gray-900">Регион</label>
+                              <Autocomplete array={areas} selected={area} setSelected={(value) => {setArea(value); setCity(''); setSchool('')}}/>
+                            </div>
+                            <div className="my-6">
+                              <label className="block mb-2 text-sm font-medium text-gray-900">Населенный пункт (город, поселок, сельский округ, село)</label>
+                              <Autocomplete array={cities} selected={city} setSelected={(value) => {setCity(value); setSchool('')}}/>
+                            </div>
+                            <div className="my-6">
+                              <label className="block mb-2 text-sm font-medium text-gray-900">Школа</label>
+                              <Autocomplete array={filteredSchools} selected={school} setSelected={setSchool}/>
+                            </div>
+                            <div className="my-6">
+                              <label className="block mb-2 text-sm font-medium text-gray-900">Вы</label>
+                              <Select list={roles} selected={role === '' ? roles[0] : role} setSelected={setRole}/>
                             </div>
                           </div>
 
                           <div className="mt-4">
                             <button
                               type="button"
-                              className="inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+                              className="inline-flex justify-center rounded-md border border-transparent bg-primary py-4 text-sm font-medium text-white w-full hover:opacity-70 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
                               onClick={submit}
                             >
                               Отправить заявку

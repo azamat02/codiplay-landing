@@ -21,9 +21,6 @@ export default function Home() {
   return (
     <main className={`h-full mx-[30px] lg:mx-[60px] min-w-fit 2xl:max-w-fit 2xl:mx-auto lining-nums`}>
       <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com"/>
-        <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"/>
         <title>CodiPlay</title>
       </Head>
       <Modal isOpen={isModalOpen} setOpen={setIsModalOpen}/>
@@ -122,7 +119,7 @@ export default function Home() {
           </div>
           <div onClick={()=>{location.href='#codikit'}} className="rounded-[10px] relative bg-lightgray p-[20px] h-[200px]">
             <div>
-              <p className="text-black text-lg mb-2 font-medium">Приложение CodiKit</p>
+              <p className="text-black text-lg mb-2 font-medium">Набор CodiKit</p>
               <p className="text-mediumgray text-sm w-1/2">Набор для сборки IoT гаджетов</p>
             </div>
             <div className="p-[12px] mt-6 lg:mt-8 bg-white rounded-full inline-block border-[1px] border-black">
@@ -132,7 +129,7 @@ export default function Home() {
           </div>
           <div onClick={()=>{location.href='#coditeach'}} className="rounded-[10px] relative bg-lightgray p-[20px] h-[200px]">
             <div>
-              <p className="text-black text-lg mb-2 font-medium">Приложение CodiTeach</p>
+              <p className="text-black text-lg mb-2 font-medium">Платформа CodiTeach</p>
               <p className="text-mediumgray text-sm">Образовательная платформа для учителей</p>
             </div>
             <div className="p-[12px] mt-12 bg-white rounded-full inline-block border-[1px] border-black">
@@ -144,7 +141,7 @@ export default function Home() {
         {/* Statistics cards */}
         <div className="w-full max-w-screen-2xl">
           <div className="border-t-[1px] border-primary border-opacity-30 grid grid-cols-1 lg:grid-cols-3 gap-[20px]">
-            <p className="text-2xl lg:text-5xl p-[20px] border-b-[1px] lg:border-b-[0px] lg:border-r-[1px] border-primary border-opacity-30">20 000 пользователей</p>
+            <p className="text-2xl lg:text-5xl p-[20px] border-b-[1px] lg:border-b-[0px] lg:border-r-[1px] border-primary border-opacity-30">28 000 пользователей</p>
             <p className="text-2xl lg:text-5xl p-[20px] border-b-[1px] lg:border-b-[0px] lg:border-r-[1px] border-primary border-opacity-30">25 школ в Казахстане</p>
             <p className="text-2xl lg:text-5xl p-[20px]">5 школ в Южной Корее</p>
           </div>
@@ -154,14 +151,14 @@ export default function Home() {
         </div>
         {/* Product description cards */}
         <div id='codiplay' className="w-full max-w-screen-2xl grid grid-cols-1 gap-10 lg:gap-0 lg:grid-cols-3 mt-20 lg:mt-[300px]">
-          <img src="/static/img/playing_codiplay.png" className='border-[1px] object-cover h-full border-mediumgray rounded-[20px] lg:rounded-[50px]' alt="" />
+          <img src="/static/img/playing_codiplay.png" className='lg:h-full border-[1px] object-cover border-mediumgray rounded-[20px] lg:rounded-[50px]' alt="" />
           <div className="lg:order-last order-first lg:col-span-2 border-[1px] border-mediumgray rounded-[20px] lg:rounded-[50px] p-5 lg:px-[80px] lg:py-[50px]">
             <div className="flex flex-col gap-[38px]">
               <p className="text-sm lg:text-4xl">Приложение <span className="font-bold text-primary">CodiPlay</span> - обучение программированию через аркадные игры</p>
               <p className="text-xs text-mediumgray lg:text-black lg:text-xl lg:w-1/2">Школьники от 8 лет изучают основы программирования в увлекательной форме</p>
               <div className='flex flex-col gap-[20px]'>
                 <p className="text-xs lg:text-xl lg:w-1/2">Изучаемые языки программирования:</p>
-                <div className="text-xs lg:text-lg grid grid-cols-1 lg:flex gap-[20px]">
+                <div className="text-xs lg:text-lg flex flex-wrap items-stretch gap-[20px]">
                   <span className="px-10 py-2 border-[1px] rounded-full border-mediumgray text-mediumgray inline-block">Python</span>
                   <span className="px-10 py-2 border-[1px] rounded-full border-mediumgray text-mediumgray inline-block">С++/C#</span>
                   <span className="px-10 py-2 border-[1px] rounded-full border-mediumgray text-mediumgray inline-block">Scratch/Block coding</span>
@@ -178,19 +175,17 @@ export default function Home() {
                 <p className="text-xs lg:text-xl text-mediumgray lg:text-black lg:w-1/2">Чтобы закрепить знания полученные в игровой форме школьники собирают IoT-гаджеты с набором CodiKit</p>
                 <div className='flex flex-col gap-[20px]'>
                   <p className="text-xs lg:text-xl lg:w-1/2">Примеры проектов:</p>
-                  <div className="grid grid-cols-1 lg:flex gap-[20px]">
+                  <div className="flex flex-wrap items-stretch lg:flex gap-[20px]">
                     <span className="px-10 py-2 text-xs lg:text-lg border-[1px] rounded-full border-primary text-primary inline-block">Умная парковка</span>
                     <span className="px-10 py-2 text-xs lg:text-lg border-[1px] rounded-full border-primary text-primary inline-block">Умная лампа</span>
                     <span className="px-10 py-2 text-xs lg:text-lg border-[1px] rounded-full border-primary text-primary inline-block">Светофор</span>
-                  </div>
-                  <div className="grid grid-cols-1 lg:flex gap-[20px]">
                     <span className="px-10 py-2 text-xs lg:text-lg border-[1px] rounded-full border-primary text-primary inline-block">Умная ферма</span>
                     <span className="px-10 py-2 text-xs lg:text-lg border-[1px] rounded-full border-primary text-primary inline-block">Смарт корзина с датчиком движения</span>
                   </div>
                 </div>
               </div>
           </div>
-          <img src="/static/img/codikit.png" className='h-full object-cover border-[1px] border-mediumgray rounded-[20px] lg:rounded-[50px]' alt="" />
+          <img src="/static/img/codikit.png" className='lg:h-full object-cover border-[1px] border-mediumgray rounded-[20px] lg:rounded-[50px]' alt="" />
         </div>
         {/* Problem of schools */}
         <div className="w-full max-w-screen-2xl my-10 lg:my-[150px]">
@@ -279,8 +274,11 @@ export default function Home() {
         </div>
         {/* Connect school */}
         <p className="text-xl lg:text-4xl text-center mt-20 lg:mt-[200px]">Подключить CodiPlay в вашу школу</p>
-        <div className="flex justify-center mt-10 lg:mt-20">        
-          <button onClick={openModal} className="rounded-full text-lg lg:text-3xl bg-primary text-white w-[150px] h-[150px] lg:w-[300px] lg:h-[300px]">Подключить</button>
+        <div className="flex justify-center mt-10 lg:mt-20">
+          <button onClick={openModal} className='rounded-full text-lg lg:text-3xl bg-primary text-white w-[150px] h-[150px] lg:w-[300px] lg:h-[300px]'>
+            Подключить
+          </button>
+          {/* <button onClick={openModal} className="rounded-full text-lg lg:text-3xl bg-primary text-white w-[150px] h-[150px] lg:w-[300px] lg:h-[300px]">Подключить</button> */}
         </div>
         {/* Footer */}
         <div id='contacts' className="w-full max-w-screen-2xl mt-[200px] bg-black rounded-t-[20px] lg:rounded-t-[50px] p-5 lg:p-[90px] lg:pb-1">

@@ -41,41 +41,41 @@ export default function Modal({isOpen, setOpen}: ModalProps) {
     const [loading, setLoading] = useState(false)
     const [response, setResponse] = useState('')
     const [region, setRegion] = useState('')
-    const [area, setArea] = useState('')
+    // const [area, setArea] = useState('')
     const [city, setCity] = useState('')
     const [school, setSchool] = useState('')
-    const [role, setRole] = useState('')
     let roles = ['Директор', 'Учитель', 'Завуч', 'Школьник', 'Родитель']
+    const [role, setRole] = useState(roles[1])
     // @ts-ignore
     let regions = [...new Set(schools.map(school => school.nate1))]
-    let areas = []
+    // let areas = []
     let cities = []
     let filteredSchools = []
 
     if (region) {
       // @ts-ignore
-      areas = [...new Set(schools.map((school: any) => {if (school.nate1 === region) return school.nate2}))]
-      areas = areas.filter(area => {return area != undefined})
-    }
-
-    if (area) {
-      // @ts-ignore
-      cities = [...new Set(schools.map((school: any) => {if (school.nate1 === region && school.nate2 == area) return school.nate3}))]
+      cities = [...new Set(schools.map((school: any) => {if (school.nate1 === region) return school.nate3}))]
       cities = cities.filter(city => {return city != undefined})
     }
 
+    // if (area) {
+    //   // @ts-ignore
+    //   cities = [...new Set(schools.map((school: any) => {if (school.nate1 === region && school.nate2 == area) return school.nate3}))]
+    //   cities = cities.filter(city => {return city != undefined})
+    // }
+
     if (city) {
       // @ts-ignore
-      filteredSchools = [...new Set(schools.map((school: any) => {if (school.nate1 === region && school.nate2 == area && school.nate3 === city) return school.nate4}))]
+      filteredSchools = [...new Set(schools.map((school: any) => {if (school.nate1 === region && school.nate3 === city) return school.nate4}))]
       filteredSchools = filteredSchools.filter(school => {return school != undefined})
     }
     
     function submit() {
-      if (name == '' || phone == '' || region== '' || area== '' || city== '' || school== '' || role== '') {
+      if (name == '' || phone == '' || region== '' || city== '' || school== '' || role== '') {
         setError(true)
       } else {
         setLoading(true)
-        send(name, phone, region, area, city, school, role).then(res=>{
+        send(name, phone, region, schools.filter(item => item.nate1 === region && item.nate3 === city && item.nate4 === school)[0].nate2, city, school, role).then(res=>{
           window.location.href="https://t.me/codiplayu"
           setResponse("ok")
           setLoading(false)
@@ -84,7 +84,7 @@ export default function Modal({isOpen, setOpen}: ModalProps) {
             setName('')
             setPhone('')
             setRegion('')
-            setArea('')
+            // setArea('')
             setCity('')
             setSchool('')
             setRole('')
@@ -100,7 +100,7 @@ export default function Modal({isOpen, setOpen}: ModalProps) {
             setName('')
             setPhone('')
             setRegion('')
-            setArea('')
+            // setArea('')
             setCity('')
             setSchool('')
             setRole('')
@@ -190,12 +190,12 @@ export default function Modal({isOpen, setOpen}: ModalProps) {
                             </div>
                             <div className="my-6">
                               <label className="block mb-2 text-sm font-medium text-gray-900">Область</label>
-                              <Autocomplete array={regions} selected={region} setSelected={(value) => {setRegion(value); setArea(''); setCity(''); setSchool('')}}/>
+                              <Autocomplete array={regions} selected={region} setSelected={(value) => {setRegion(value); setCity(''); setSchool('')}}/>
                             </div>
-                            <div className="my-6">
+                            {/* <div className="my-6">
                               <label className="block mb-2 text-sm font-medium text-gray-900">Регион</label>
                               <Autocomplete array={areas} selected={area} setSelected={(value) => {setArea(value); setCity(''); setSchool('')}}/>
-                            </div>
+                            </div> */}
                             <div className="my-6">
                               <label className="block mb-2 text-sm font-medium text-gray-900">Населенный пункт (город, поселок, сельский округ, село)</label>
                               <Autocomplete array={cities} selected={city} setSelected={(value) => {setCity(value); setSchool('')}}/>
@@ -204,9 +204,13 @@ export default function Modal({isOpen, setOpen}: ModalProps) {
                               <label className="block mb-2 text-sm font-medium text-gray-900">Школа</label>
                               <Autocomplete array={filteredSchools} selected={school} setSelected={setSchool}/>
                             </div>
+                            {/* <div className="my-6">
+                              <label className="block mb-2 text-sm font-medium text-gray-900">Представитель</label>
+                              <Select list={roles} selected={role} setSelected={setRole}/>
+                            </div> */}
                             <div className="my-6">
-                              <label className="block mb-2 text-sm font-medium text-gray-900">Вы</label>
-                              <Select list={roles} selected={role === '' ? roles[0] : role} setSelected={setRole}/>
+                              <label className="block mb-2 text-sm font-medium text-gray-900">Представитель</label>
+                              <CustomRadioGroup list={roles} selected={role} setSelected={setRole}/>
                             </div>
                           </div>
 

@@ -53,11 +53,15 @@ export default function CustomRadioGroup({selected, setSelected, list}: CustomRa
                           </RadioGroup.Description>
                         </div>
                       </div>
-                      {checked && (
+                      {checked ? (
                         <div className="shrink-0 text-white">
                           <CheckIcon className="h-6 w-6" />
                         </div>
-                      )}
+                      ) :  
+                      <div className="shrink-0 text-white">
+                        <div className="w-6 h-6 rounded-full border-[1px] bg-lightgray"></div>
+                      </div>
+                    }
                     </div>
                   </>
                 )}
